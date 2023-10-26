@@ -1,0 +1,46 @@
+{% load static %}
+<header>
+    <div class="px-3 py-3 bg-dark text-white">
+      <div class="container">
+        <h3 class="text-black"> <img width="40" height="40" src="{% static '/images/tiffin.png' %}">&nbsp;&nbsp;Dublin Tiffin Service</h3>
+        <div class="align-items-center justify-content-center justify-content-lg-start">
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+            <li>
+              <a href="{% url 'home' %}" class="nav-link text-white">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'meals' %}" class="nav-link text-white">
+                Meals
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'bookings' %}" class="nav-link text-white">
+                Manage Bookings
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'order_history' %}" class="nav-link text-white">
+                Order History
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'user_details' %}" class="nav-link text-white">
+                User Details
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'aboutus' %}" class="nav-link text-white">
+                About Us
+              </a>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-end">
+        <button type="button" class="btn btn-light text-dark me-2">Login</button>
+        <button type="button" class="btn btn-primary">Sign-up</button>
+      </div>
+    </div>
+  </header>

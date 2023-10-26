@@ -1,0 +1,83 @@
+{% extends '_partials/base.html' %}
+
+{% load static %}
+
+{% block title %}
+      <title>Dublin Tiffin Service - About Us</title>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+<br>
+<h1 class="text-center">ABOUT US</h1>
+<section class="trust-quality my-5">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-3">
+                <img src="{% static '/images/about1.png'%}" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-secondary">Fusion Cooking</h3>
+                <p>The best of traditional cooking methods and modern healthy standards.
+                </p>
+                <p>
+                  Welcome to our culinary haven, where tradition and innovation unite in a tantalizing dance of flavors. 
+                  At Explore the World of Fusion Cooking, we are dedicated to redefining the art of gastronomy through the exciting 
+                  fusion of diverse culinary traditions. Our mission is to transport your taste buds on a journey across the globe, 
+                  creating unique and unforgettable dining experiences.
+                </p>
+                <!-- <a href="#" class="btn btn-primary">Enquire Now</a> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-quality my-5">
+      <div class="container">
+          <div class="row d-flex align-items-center">
+              <div class="col-md-3">
+                  <img src="{% static '/images/about2.png'%}" class="img-fluid" alt="">
+              </div>
+              <div class="col-md-6">
+                  <h3 class="text-secondary">Fresh & Locally Sourced.</h3>
+                  <p>We use only fresh & locally sourced vegetables and grass-fed protein.
+                  </p>
+                  <p>At Fresh & Locally Sourced, we are passionate about bringing the best of our community's bounty directly to your table. 
+                        Our mission is simple yet powerful: to provide you with access to the freshest, most wholesome, and locally sourced 
+                        food products while supporting the dedicated farmers, growers, and artisans in our region.
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary">Enquire Now</a> -->
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+<section class="mission-vision my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="content vision">
+                    <h2 class="text-secondary ">Our Vision</h2>
+                    <p>“At Fusion Excellence, we envision a world where the boundaries of traditional cuisine are continuously redefined, where culinary creativity knows no limits, and where the art of fusion cooking transforms ordinary dining into extraordinary culinary adventures.”
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="content mission">
+                    <h2 class="text-secondary">Our Mission</h2>
+                    <p>“At Fusion Excellence, our mission is to redefine the boundaries of culinary creativity, unleashing the full potential of fusion cooking to offer our patrons a remarkable dining experience."
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+</div>
+
+{% endblock %}
