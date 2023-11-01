@@ -13,7 +13,16 @@ class CustomUserAccountInLine(admin.StackedInline):
 
 
 class CustomUserAccountAdmin(UserAdmin):
+    def add_view(self, *args, **kwargs):
+        self.inline = []
+        return super(CustomUserAccountAdmin, self).add_view(*args, **kwargs)
+
+    def change_view(self, *args, **kwargs):
+        self.inline = [CustomUserAccountInLine]
+        return super(CustomUserAccountAdmin, self).change_view(*args, **kwargs)
+
     inlines = (CustomUserAccountInLine,)
+
 
 
 admin.site.unregister(User)

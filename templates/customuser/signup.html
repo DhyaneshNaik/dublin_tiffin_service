@@ -5,7 +5,115 @@
 {% endblock %}
 
 {% load static %}
+{% load widget_tweaks %}
 
 {% block body %}
+<div class="container">
+<br>
+    <h1 class="text-center">Register</h1>
+    <hr>
+<div class="container vh-100" style="margin-top: 5%;margin-bottom: 40%;">
+<section class="vh-100 bg-image vh-100">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-2">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
+              <form method="POST">
+                  {% csrf_token %}
+                <!-- <div class="form-outline mb-4">
+                  <input type="text" id="first_name" name="first_name" class="form-control form-control-lg" />
+                  <label class="form-label" for="first_name">First Name</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="last_name" name="last_name" class="form-control form-control-lg" />
+                  <label class="form-label" for="last_name">Last Name</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="tel" id="phone" name="phone" class="form-control form-control-lg" />
+                  <label class="form-label" for="phone">Phone Number</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="homeaddr" name="homeaddr" class="form-control form-control-lg" />
+                  <label class="form-label" for="homeaddr">Home Address</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="workaddr" name="workaddr" class="form-control form-control-lg" />
+                  <label class="form-label" for="workaddr">Working/Student Address</label>
+                </div>
+                
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                  <label class="form-label" for="email">Email</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                  <label class="form-label" for="password">Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="password1" name="password1" class="form-control form-control-lg" />
+                  <label class="form-label" for="password1">Repeat your password</label>
+                </div> -->
+
+                {% for field in u_form.visible_fields %}
+                  <div class="form-outline mb-4">
+                      <label class="form-label" for="id_username">{{ field.label_tag }}</label>
+                      {% render_field field class="form-control" %}
+                      {% if field.help_text %}
+                      {{ field.errors }}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                      {% endif %}
+                  </div>
+                  {% endfor %}
+
+                  {% for field in c_form.visible_fields %}
+                  <div class="form-outline mb-4">
+                      <label class="form-label" for="id_username">{{ field.label_tag }}</label>
+                      {% render_field field class="form-control" %}
+                      {% if field.help_text %}
+                      {{ field.errors }}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                      {% endif %}
+                  </div>
+                  {% endfor %}
+
+                  <!-- <div class="form-outline mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                  </div> -->
+
+                <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3cg">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'login' %}"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</div>
 {% endblock %}

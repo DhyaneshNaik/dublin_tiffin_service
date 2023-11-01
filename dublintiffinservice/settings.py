@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'meals',
     'bookings',
     'customuser',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
