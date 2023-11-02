@@ -1,14 +1,142 @@
 {% extends '_partials/base.html' %}
 
 {% block title %}
-      <title>Dublin Tiffin Service - Meals</title>
+<title>Dublin Tiffin Service - Meals</title>
 {% endblock %}
 
 {% block body %}
 
+{% load widget_tweaks %}
+
+{% load static %}
+
+<script type="text/javascript">
+      $('#exampleModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+      })
+</script>
 <div class="container">
       <br>
       <h1 class="text-center">Meals</h1>
+      <hr>
+      <br>
+      <form method="POST">
+            <div class="d-flex justify-content-end">
+                  <button type="button" class="btn btn-primary" fdprocessedid="3om8bs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                              class="bi bi-plus" viewBox="0 0 16 16">
+                              <path
+                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
+                              </path>
+                        </svg>
+                        Add Meal
+                  </button>
+            </div>
+      </form>
+      <form method="POST">
+            {% csrf_token %}
+
+            <ul class="nav nav-tabs nav-justified">
+                  <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home">
+                              <section class="trust-quality my-1">
+                                    <div class="row">
+                                          <h4 class="text-secondary">Veg Dishes</h4>
+                                    </div>
+                              </section>
+                        </a>
+                  </li>
+                  <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#menu1">
+                              <section class="trust-quality my-1">
+                                    <div class="row">
+                                          <h4 class="text-secondary">Non-Veg Dishes</h4>
+                                    </div>
+                              </section>
+                        </a>
+                  </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                  <div class="tab-pane container active" id="home">
+                        <div class="container overflow-hidden">
+                              <div class="row gy-4 my-3">
+                                    {% for meal in veg_meal %}
+                                    <div class="col-3">
+                                          <div class="p-3 border bg-light">
+                                                <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
+                                                <div class="container text-center">
+                                                      <img src="/{{ meal.image }}" height="150" width="150"
+                                                            alt="Something Went Wrong">
+                                                      <div class="d-none d-md-block text-center">
+                                                            <h5>€{{ meal.cost }}</h5>
+                                                            <p class="fst-italic">{{ meal.description }}</p>
+                                                      </div>
+                                                      <div class="d-flex justify-content-center">
+                                                            <button type="button"
+                                                                  class="btn btn-success btn-outline-success text-dark gradient-custom-4 text-body"
+                                                                  data-bs-toggle="modal" data-bs-target="#myModal">
+                                                                  Book Meal
+                                                            </button>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                                    {% endfor %}
+                              </div>
+                        </div>
+                  </div>
+                  <div class="tab-pane container fade" id="menu1">
+                        <div class="container overflow-hidden">
+                              <div class="row gy-4 my-3">
+                                    {% for meal in nonveg_meal %}
+                                    <div class="col-3">
+                                          <div class="p-3 border bg-light">
+                                                <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
+                                                <div class="container text-center">
+                                                      <img src="/{{ meal.image }}" height="150" width="150"
+                                                            alt="Something Went Wrong">
+                                                      <div class="d-none d-md-block text-center">
+                                                            <h5>€{{ meal.cost }}</h5>
+                                                            <p class="fst-italic text-wrap">{{ meal.description }}</p>
+                                                      </div>
+                                                      <!-- Button trigger modal -->
+                                                      <div class="d-flex justify-content-center">
+                                                            <button type="button"
+                                                                  class="btn btn-success btn-outline-success text-dark btn-block gradient-custom-4 text-body"
+                                                                  data-bs-toggle="modal" data-bs-target="#myModal">
+                                                                  Book Meal
+                                                            </button>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                                    {% endfor %}
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                  <div class="modal-dialog">
+                        <div class="modal-content">
+                              <div class="modal-header">
+                                    <h4 class="modal-title">Book Your Meal</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              <div class="modal-body">
+                                    Are you Sure ?
+                              </div>
+                              <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                          data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Book</button>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </form>
 </div>
 
 {% endblock %}

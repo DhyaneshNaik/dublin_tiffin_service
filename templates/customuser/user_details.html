@@ -35,6 +35,15 @@
                                                 <small class="form-text text-muted">{{ field.help_text }}</small>
                                                 {% endif %}
                                             </div>
+                                        {% else %}
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="id_username">{{ field.label_tag }}</label>
+                                                {% render_field field class="form-control" %}
+                                                {% if field.help_text %}
+                                                {{ field.errors }}
+                                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                            </div>
                                         {% endif %}
                                     {% endfor %}
 

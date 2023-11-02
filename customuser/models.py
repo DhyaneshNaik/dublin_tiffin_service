@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+
 # Create your models here.
 class CustomUserAccountField(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)

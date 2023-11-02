@@ -1,28 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django import forms
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .models import CustomUserAccountField
+from .forms import SignUpForm, CustomUserForm, UserEditForm
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ("username", "first_name", "last_name", "email", "password")
-
-    def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        return user
-
-class CustomUserForm(forms.ModelForm):
-    class Meta:
-        model = CustomUserAccountField
-        fields = ("phone_number", "home_address", "dest_address")
 
 
 # Create your views here.
@@ -39,16 +21,21 @@ def aboutus(request):
 def user_details(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            user_form = UserForm(request.POST, instance=request.user)
+            user_form = UserEditForm(request.POST, instance=request.user)
             custom_user_form = CustomUserForm(request.POST, instance=request.user.customuseraccountfield)
+            print(user_form.is_valid(), custom_user_form.is_valid())
             if user_form.is_valid() and custom_user_form.is_valid():
+                print('save 1')
                 user_form.save()
+                print('save 2')
                 custom_user_form.save()
+                print('save 3')
                 return redirect('user_details')
             else:
+                print(user_form.errors)
                 pass #add exception hanndling for forms.
         else:
-            user_form = UserForm(instance=request.user)
+            user_form = UserEditForm(instance=request.user)
             custom_user_form = CustomUserForm(instance=request.user.customuseraccountfield)
         return render(request, 'customuser/user_details.html', {"u_form": user_form, "c_form": custom_user_form})
 
@@ -75,31 +62,25 @@ def login_user(request):
 @transaction.atomic
 def register_user(request):
     if request.method == 'GET':
-        user_form = UserForm()
+        user_form = SignUpForm()
         custom_user_form = CustomUserForm()
         return render(request, 'customuser/signup.html', {"u_form": user_form, "c_form": custom_user_form})
     if request.method == 'POST':
-        user_form = UserForm(request.POST)
+        user_form = SignUpForm(request.POST)
         custom_user_form = CustomUserForm(request.POST)
 
-        print(user_form.is_valid() , custom_user_form.is_valid())
-        
         if user_form.is_valid() and custom_user_form.is_valid():
             user = user_form.save()
-            print('saved 2')
 
             custom_user = custom_user_form.save(commit=False)
             custom_user.user = user
             custom_user.save()
-            print('saved 3')
             
             username = request.POST.get('username')
             password = request.POST.get('password')
-            print(username, password)
-            user = authenticate(username=username, passsword=password)
             return redirect('login')
         else:
-            user_form = UserForm(request.POST)
+            user_form = SignUpForm(request.POST)
             custom_user_form = CustomUserForm(request.POST)
             return render(request, 'customuser/signup.html', {"u_form": user_form, "c_form": custom_user_form})
         
