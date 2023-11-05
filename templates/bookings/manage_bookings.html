@@ -1,7 +1,7 @@
 {% extends '_partials/base.html' %}
 
 {% block title %}
-      <title>Dublin Tiffin Service - Bookings</title>
+<title>Dublin Tiffin Service - Bookings</title>
 {% endblock %}
 
 {% block body %}
@@ -9,6 +9,43 @@
 <div class="container">
       <br>
       <h1 class="text-center">Manage Bookings</h1>
+      <hr>
+      <br>
+
+      <table class="table able-striped table-hover">
+            <thead>
+                  <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Meal</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Cost</th>
+                        <th scope="col">Is Delivered</th>
+                        <th scope="col">Actions</th>
+                  </tr>
+            </thead>
+            <tbody>
+                  {% for booking in bookings %}
+                  <tr>
+                        <td scope="row">{{ booking.id }}</td>
+                        <td>{{ booking.user_id }}</td>
+                        <td>{{ booking.meal_id }}</td>
+                        <td>{{ booking.quantity }}</td>
+                        <td>{{ booking.total_cost }}</td>
+                        <td>{{ booking.is_delievered }}</td>
+                        <td>
+                              <a href="{% url 'update_bookings' booking.id %}"><button
+                                    type="button"
+                                    class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
+                                    data-bs-toggle="modal">
+                                    Delievered
+                              </button></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                              <a href="{% url 'delete_bookings' booking.id %}"><button type="button" class="btn-close"
+                                          aria-label="Close"></button></a></td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+      </table>
 </div>
 
 {% endblock %}

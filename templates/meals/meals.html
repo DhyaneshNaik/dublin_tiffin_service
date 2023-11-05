@@ -9,12 +9,12 @@
 {% load widget_tweaks %}
 
 {% load static %}
-
+<!-- 
 <script type="text/javascript">
       $('#exampleModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
       })
-</script>
+</script> -->
 <div class="container">
       <br>
       <h1 class="text-center">Meals</h1>
@@ -62,6 +62,7 @@
                         <div class="container overflow-hidden">
                               <div class="row gy-4 my-3">
                                     {% for meal in veg_meal %}
+                                    {% include 'includes/meal_confirm.html' %}
                                     <div class="col-3">
                                           <div class="p-3 border bg-light" style="border-radius: 10%;">
                                                 <a href="{% url 'delete_meal' meal.id %}">
@@ -88,7 +89,7 @@
                                                                   </button></a>&nbsp;&nbsp;
                                                             <button type="button"
                                                                   class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
-                                                                  data-bs-toggle="modal" data-bs-target="#myModal">
+                                                                  data-bs-toggle="modal" data-bs-target="#myModal{{ meal.pk }}">
                                                                   <!-- data-bs-toggle="offcanvas"
                                                                   data-bs-target="#offcanvasRight"
                                                                   aria-controls="offcanvasRight"  -->
@@ -106,6 +107,7 @@
                         <div class="container overflow-hidden">
                               <div class="row gy-4 my-3">
                                     {% for meal in nonveg_meal %}
+                                    {% include 'includes/meal_confirm.html' %}
                                     <div class="col-3">
                                           <div class="p-3 border bg-light" style="border-radius: 10%;">
                                                 <a href="{% url 'delete_meal' meal.id %}">
@@ -132,8 +134,8 @@
                                                                         Edit
                                                                   </button></a>&nbsp;&nbsp;
                                                             <button type="button"
-                                                                  class="btn rounded-pill btn-outline-secondary text-dark btn-block gradient-custom-4 text-body"
-                                                                  data-bs-toggle="modal" data-bs-target="#myModal">
+                                                                  class="btn rounded-pill btn-outline-secondary text-dark btn-block gradient-custom-4 text-body" 
+                                                                  data-bs-toggle="modal" data-bs-target="#myModal{{ meal.pk }}">
                                                                   Book Meal
                                                             </button>
                                                       </div>
@@ -146,7 +148,7 @@
                   </div>
 
                   <!-- canvas -->
-                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight{{ meal.id }}"
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight{{ meal.pk }}"
                         aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
                               <h5 id="offcanvasRightLabel">Offcanvas right- {{ meal.name }}</h5>
@@ -155,28 +157,6 @@
                         </div>
                         <div class="offcanvas-body">
                               ...
-                              {{ meal.name }}
-                              meal.name
-                        </div>
-                  </div>
-
-                  <!-- The Modal -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                              <div class="modal-content">
-                                    <div class="modal-header">
-                                          <h4 class="modal-title">Book Your Meal</h4>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                          Are you Sure ?
-                                    </div>
-                                    <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                          <button type="button" class="btn btn-primary">Book</button>
-                                    </div>
-                              </div>
                         </div>
                   </div>
             </div>

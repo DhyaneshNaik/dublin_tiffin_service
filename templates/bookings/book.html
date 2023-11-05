@@ -1,0 +1,121 @@
+{% extends '_partials/base.html' %}
+
+{% block title %}
+<title>Dublin Tiffin Service - Bookings</title>
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<style>
+      .quantity-container {
+            display: flex;
+            align-items: center;
+      }
+
+      .quantity-input {
+            width: 40px;
+            text-align: center;
+      }
+
+      .quantity-control {
+            display: flex;
+            flex-direction: column;
+      }
+
+      .quantity-button {
+            cursor: pointer;
+            font-size: 20px;
+      }
+</style>
+<div class="container">
+      <br>
+      <h1 class="text-center">Book Meal</h1>
+      <hr>
+      <br>
+      <form method="POST" action="{% url 'booking_confirm' meal.id %}">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                  <div class="card text-center" style="width: 24rem;">
+                        <img src="/{{ meal.image }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                              <h5 class="card-title">{{ meal.name }}</h5>
+                              <p class="card-text">{{ meal.description }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                              <li class="list-group-item">Cost : €{{ meal.cost }}</li>
+                              <li class="list-group-item d-flex justify-content-center">
+                                    <label for="quantity">Quantity:</label>
+                                    <div class="quantity-control d-flex justify-content-center">
+                                          <div class="quantity-button" id="decrease">-</div>
+                                          <input type="number" id="quantity" name="quantity" class="quantity-input"
+                                                value="1" min="1">
+                                          <div class="quantity-button" id="increase">+</div>
+                                    </div>
+                              </li>
+                              <li class="list-group-item">
+                                    <p>Total Price: <span id="total-price">{{ meal.cost }}</span></p>
+                              </li>
+                        </ul>
+
+                        <input type="hidden" id="total-cost" name="total_cost" value="{{ meal.cost }}">
+                        <input type="hidden" id="total-quantity" name="total_quantity" value="1">
+
+                        <div class="card-body">
+                              <button type="submit"
+                                    class="btn btn-primary rounded-pill btn-outline-primary text-dark gradient-custom-4 text-body">
+                                    Book Meal
+                              </button>
+                        </div>
+                  </div>
+            </div>
+      </form>
+</div>
+
+<script>
+      // Get the quantity input element and buttons
+      const quantityInput = document.getElementById("quantity");
+      const decreaseButton = document.getElementById("decrease");
+      const increaseButton = document.getElementById("increase");
+      const totalQuantityInput = document.getElementById("total-quantity");
+      const totalCostInput = document.getElementById("total-cost");
+
+      // Add event listeners to the plus and minus buttons
+      decreaseButton.addEventListener("click", decreaseQuantity);
+      increaseButton.addEventListener("click", increaseQuantity);
+
+      // Function to decrease the quantity
+      function decreaseQuantity() {
+            const currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                  quantityInput.value = currentQuantity - 1;
+                  updateTotalPrice();
+            }
+      }
+
+      // Function to increase the quantity
+      function increaseQuantity() {
+            const currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+            updateTotalPrice();
+      }
+      
+      // Function to update the total price based on the quantity
+      function updateTotalPrice() {
+            const quantity = parseInt(quantityInput.value);
+            const price = {{ meal.cost }}
+       // The price of the product
+
+      // Calculate the total price
+      const totalPrice = (quantity * price).toFixed(2);
+
+      // Update the total price displayed on the page
+      document.getElementById("total-price").textContent = `$${totalPrice}`;
+
+      totalQuantityInput.value = quantity;
+      totalCostInput.value = totalPrice;
+      };
+
+      // Initial update of total price
+      updateTotalPrice();
+</script>
+{% endblock %}

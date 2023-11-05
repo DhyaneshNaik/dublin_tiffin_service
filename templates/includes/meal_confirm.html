@@ -1,0 +1,20 @@
+<!-- The Modal -->
+<div class="modal fade" id="myModal{{ meal.pk }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book Your Meal</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center">{{ meal.name }}</h4>
+                <small class="form-text text-muted">{{ meal.description }}</small>
+                <br> <p class="text-center">Do you want to proceed ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'book' meal.id %}"><button type="button" class="btn btn-primary">Book</button></a>
+            </div>
+        </div>
+    </div>
+</div>
