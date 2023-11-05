@@ -20,21 +20,20 @@
       <h1 class="text-center">Meals</h1>
       <hr>
       <br>
-      <form method="POST">
-            <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-primary" fdprocessedid="3om8bs">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-plus" viewBox="0 0 16 16">
-                              <path
-                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
-                              </path>
-                        </svg>
-                        Add Meal
-                  </button>
-            </div>
-      </form>
-      <form method="POST">
+      <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
+            <div class="d-flex justify-content-end">
+                  <a href="{% url 'add_meal' %}"><button type="button" class="btn btn-primary" fdprocessedid="3om8bs">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path
+                                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
+                                    </path>
+                              </svg>
+                              Add Meal
+                        </button></a>
+            </div>
+            <br>
 
             <ul class="nav nav-tabs nav-justified">
                   <li class="nav-item">
@@ -64,19 +63,35 @@
                               <div class="row gy-4 my-3">
                                     {% for meal in veg_meal %}
                                     <div class="col-3">
-                                          <div class="p-3 border bg-light">
+                                          <div class="p-3 border bg-light" style="border-radius: 10%;">
+                                                <a href="{% url 'delete_meal' meal.id %}">
+                                                      <div class="float-end">
+                                                            <button type="button" class="btn-close"
+                                                                  aria-label="Close"></button>
+                                                      </div>
+                                                </a>
                                                 <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
                                                 <div class="container text-center">
                                                       <img src="/{{ meal.image }}" height="150" width="150"
                                                             alt="Something Went Wrong">
-                                                      <div class="d-none d-md-block text-center">
+                                                      <div class="d-none d-md-block text-center text-wrap"
+                                                            style="width: 8rem;">
                                                             <h5>€{{ meal.cost }}</h5>
                                                             <p class="fst-italic">{{ meal.description }}</p>
                                                       </div>
                                                       <div class="d-flex justify-content-center">
+                                                            <a href="{% url 'meal_form_add_update' meal.id %}"><button
+                                                                        type="button"
+                                                                        class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
+                                                                        data-bs-toggle="modal">
+                                                                        Edit
+                                                                  </button></a>&nbsp;&nbsp;
                                                             <button type="button"
-                                                                  class="btn btn-success btn-outline-success text-dark gradient-custom-4 text-body"
+                                                                  class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
                                                                   data-bs-toggle="modal" data-bs-target="#myModal">
+                                                                  <!-- data-bs-toggle="offcanvas"
+                                                                  data-bs-target="#offcanvasRight"
+                                                                  aria-controls="offcanvasRight"  -->
                                                                   Book Meal
                                                             </button>
                                                       </div>
@@ -92,19 +107,32 @@
                               <div class="row gy-4 my-3">
                                     {% for meal in nonveg_meal %}
                                     <div class="col-3">
-                                          <div class="p-3 border bg-light">
+                                          <div class="p-3 border bg-light" style="border-radius: 10%;">
+                                                <a href="{% url 'delete_meal' meal.id %}">
+                                                      <div class="float-end">
+                                                            <button type="button" class="btn-close"
+                                                                  aria-label="Close"></button>
+                                                      </div>
+                                                </a>
+
                                                 <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
                                                 <div class="container text-center">
                                                       <img src="/{{ meal.image }}" height="150" width="150"
                                                             alt="Something Went Wrong">
-                                                      <div class="d-none d-md-block text-center">
+                                                      <div class="d-none d-md-block text-center text-wrap">
                                                             <h5>€{{ meal.cost }}</h5>
                                                             <p class="fst-italic text-wrap">{{ meal.description }}</p>
                                                       </div>
                                                       <!-- Button trigger modal -->
                                                       <div class="d-flex justify-content-center">
+                                                            <a href="{% url 'meal_form_add_update' meal.id %}"><button
+                                                                        type="button"
+                                                                        class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
+                                                                        data-bs-toggle="modal">
+                                                                        Edit
+                                                                  </button></a>&nbsp;&nbsp;
                                                             <button type="button"
-                                                                  class="btn btn-success btn-outline-success text-dark btn-block gradient-custom-4 text-body"
+                                                                  class="btn rounded-pill btn-outline-secondary text-dark btn-block gradient-custom-4 text-body"
                                                                   data-bs-toggle="modal" data-bs-target="#myModal">
                                                                   Book Meal
                                                             </button>
@@ -116,22 +144,38 @@
                               </div>
                         </div>
                   </div>
-            </div>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-                  <div class="modal-dialog">
-                        <div class="modal-content">
-                              <div class="modal-header">
-                                    <h4 class="modal-title">Book Your Meal</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                              </div>
-                              <div class="modal-body">
-                                    Are you Sure ?
-                              </div>
-                              <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                          data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Book</button>
+
+                  <!-- canvas -->
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight{{ meal.id }}"
+                        aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header">
+                              <h5 id="offcanvasRightLabel">Offcanvas right- {{ meal.name }}</h5>
+                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                              ...
+                              {{ meal.name }}
+                              meal.name
+                        </div>
+                  </div>
+
+                  <!-- The Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                              <div class="modal-content">
+                                    <div class="modal-header">
+                                          <h4 class="modal-title">Book Your Meal</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                          Are you Sure ?
+                                    </div>
+                                    <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-primary">Book</button>
+                                    </div>
                               </div>
                         </div>
                   </div>
