@@ -28,7 +28,6 @@ def meal_form_add_update(request, id=0):
         if id == 0:
             m_form = MealsForm()
         else:
-            m_form = MealsForm()
             meal = Meals.objects.get(id=id)
             m_form = MealsForm(instance=meal)
         return render(request, 'meals/meal_form.html', {'m_form': m_form})
@@ -39,7 +38,6 @@ def meal_form_add_update(request, id=0):
             meal = Meals.objects.get(id=id)
             m_form = MealsForm(request.POST, instance=meal)
         if m_form.is_valid():
-            print("saved")
             m_form.save()
         print(m_form.errors)
         return redirect('meals')
