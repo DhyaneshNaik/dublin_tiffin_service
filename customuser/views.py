@@ -3,15 +3,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_safe
 from .forms import SignUpForm, CustomUserForm, UserEditForm
 
 
-@require_http_methods(["GET"])
+@require_safe
 def home(request):
     return render(request, 'home.html')
 
-@require_http_methods(["GET"])
+@require_safe
 def aboutus(request):
     return render(request, 'aboutus.html')
 
