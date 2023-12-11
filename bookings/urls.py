@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+
 urlpatterns = [
     path('', views.manage_bookings, name='manage_bookings'),
     path('book/<int:id>', views.book, name='book'),

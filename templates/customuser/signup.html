@@ -24,50 +24,11 @@
 
               <form method="POST">
                   {% csrf_token %}
-                <!-- <div class="form-outline mb-4">
-                  <input type="text" id="first_name" name="first_name" class="form-control form-control-lg" />
-                  <label class="form-label" for="first_name">First Name</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="text" id="last_name" name="last_name" class="form-control form-control-lg" />
-                  <label class="form-label" for="last_name">Last Name</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="tel" id="phone" name="phone" class="form-control form-control-lg" />
-                  <label class="form-label" for="phone">Phone Number</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="text" id="homeaddr" name="homeaddr" class="form-control form-control-lg" />
-                  <label class="form-label" for="homeaddr">Home Address</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="text" id="workaddr" name="workaddr" class="form-control form-control-lg" />
-                  <label class="form-label" for="workaddr">Working/Student Address</label>
-                </div>
                 
-                <div class="form-outline mb-4">
-                  <input type="email" id="email" name="email" class="form-control form-control-lg" />
-                  <label class="form-label" for="email">Email</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="password" name="password" class="form-control form-control-lg" />
-                  <label class="form-label" for="password">Password</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="password1" name="password1" class="form-control form-control-lg" />
-                  <label class="form-label" for="password1">Repeat your password</label>
-                </div> -->
-
                 {% for field in u_form.visible_fields %}
                   <div class="form-outline mb-4">
                       <label class="form-label" for="id_username">{{ field.label_tag }}</label>
-                      {% render_field field class="form-control" %}
+                      {% render_field field class="form-control" attr="required autofocus" %}
                       {% if field.help_text %}
                       {{ field.errors }}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -78,18 +39,13 @@
                   {% for field in c_form.visible_fields %}
                   <div class="form-outline mb-4">
                       <label class="form-label" for="id_username">{{ field.label_tag }}</label>
-                      {% render_field field class="form-control" %}
+                      {% render_field field class="form-control" attr="required autofocus"%}
                       {% if field.help_text %}
                       {{ field.errors }}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
                       {% endif %}
                   </div>
                   {% endfor %}
-
-                  <!-- <div class="form-outline mb-4">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control form-control-lg" />
-                  </div> -->
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />

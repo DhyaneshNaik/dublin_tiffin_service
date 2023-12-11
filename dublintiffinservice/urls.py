@@ -23,3 +23,6 @@ urlpatterns = [
     path('bookings/', include('bookings.urls')),
     path('meals/', include('meals.urls')),
 ]
+
+handler404 = 'customuser.views.error_404'
+handler500 = 'customuser.views.error_500'

@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+
 urlpatterns = [
     path('', views.meals, name='meals'),
     path('meal_form_add_update/', views.meal_form_add_update, name='add_meal'),

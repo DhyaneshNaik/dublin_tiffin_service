@@ -1,0 +1,22 @@
+{% extends '_partials/base.html' %}
+
+{% block title %}
+      <title>Dublin Tiffin Service - 500 Server Not Found</title>
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+<div class="page-wrap d-flex flex-row align-items-center" style="background: #dedede;min-height: 60vh;">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-12 text-center">
+                  <span class="display-1 d-block">500</span>
+                  <div class="mb-4 lead">Woops! Something Went Wrong.</div>
+                  <div class="mb-4 lead">Please Contant your Administrator.</div>
+                  <a href="{% url 'home' %}" class="btn btn-link">Back to Home</a>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
