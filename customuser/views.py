@@ -3,21 +3,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from .forms import SignUpForm, CustomUserForm, UserEditForm
 
 
-
-# Create your views here.
+@require_http_methods(["GET"])
 def home(request):
     return render(request, 'home.html')
 
-
+@require_http_methods(["GET"])
 def aboutus(request):
     return render(request, 'aboutus.html')
 
 
 @login_required
 @transaction.atomic
+@require_http_methods(["GET", "POST"])
 def user_details(request):
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -40,6 +41,7 @@ def user_details(request):
         return render(request, 'customuser/user_details.html', {"u_form": user_form, "c_form": custom_user_form})
 
 
+@require_http_methods(["GET","POST"])
 def login_user(request):
     if request.method == 'GET':
         return render(request, 'customuser/login.html')
@@ -60,6 +62,7 @@ def login_user(request):
 
 
 @transaction.atomic
+@require_http_methods(["GET","POST"])
 def register_user(request):
     if request.method == 'GET':
         user_form = SignUpForm()
@@ -75,9 +78,6 @@ def register_user(request):
             custom_user = custom_user_form.save(commit=False)
             custom_user.user = user
             custom_user.save()
-            
-            username = request.POST.get('username')
-            password = request.POST.get('password')
             return redirect('login')
         else:
             user_form = SignUpForm(request.POST)
@@ -85,7 +85,8 @@ def register_user(request):
             return render(request, 'customuser/signup.html', {"u_form": user_form, "c_form": custom_user_form})
         
 
-
+@login_required
+@require_http_methods(["GET"])
 def logout_user(request):
     logout(request)
     return redirect('login')

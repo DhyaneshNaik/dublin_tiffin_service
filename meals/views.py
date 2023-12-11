@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from .forms import MealsForm
 from .models import Meals
-# Create your views here.
 
 
+@login_required
+@require_http_methods(["GET", "POST"])
 def meals(request):
     if request.method == 'GET':
         veg_meal = Meals.objects.filter(is_veg=True)
@@ -12,6 +15,9 @@ def meals(request):
     if request.method == 'POST':
         return render(request, 'meals/meals.html')
 
+
+@login_required
+@require_http_methods(["GET", "POST"])
 def delete_meal(request, id):
     if request.method == 'GET':
         meal = Meals.objects.get(id=id)
@@ -23,6 +29,9 @@ def delete_meal(request, id):
         print("POST")
         return render(request, 'meals/meals.html')
 
+
+@login_required
+@require_http_methods(["GET", "POST"])
 def meal_form_add_update(request, id=0):
     if request.method == 'GET':
         if id == 0:
@@ -39,6 +48,5 @@ def meal_form_add_update(request, id=0):
             m_form = MealsForm(request.POST, instance=meal)
         if m_form.is_valid():
             m_form.save()
-        print(m_form.errors)
         return redirect('meals')
     return render(request, 'meals/add_meal.html')

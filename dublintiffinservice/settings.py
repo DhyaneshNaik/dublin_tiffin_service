@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['dublintiffinservice-x22206124-env-2.eba-iwpxypsn.us-east-1.elasticbeanstalk.com', '127.0.0.1']
 
