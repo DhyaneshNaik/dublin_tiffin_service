@@ -3,11 +3,13 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - docker --version
-      - docker-compose --version
+      - pip install -r requirements.txt
   build:
     commands:
-      - docker-compose up --build -d corporate_cabs
-# artifacts:
-#   files: imagedefinitions.json
-#   files: '**/*'
+      - python manage.py runserver
+  post_build:
+    commands:
+      - curl http://127.0.0.1:5000
+artifacts:
+  files: imagedefinitions.json
+  files: '**/*'
