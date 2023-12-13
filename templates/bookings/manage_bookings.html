@@ -34,14 +34,18 @@
                         <td>{{ booking.total_cost }}</td>
                         <td>{{ booking.is_delievered }}</td>
                         <td>
+                              {% if user.is_authenticated %}
+                              {% if user.is_superuser %}
                               <a href="{% url 'update_bookings' booking.id %}"><button
                                     type="button"
                                     class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
                                     data-bs-toggle="modal">
                                     Delievered
                               </button></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                              {% endif %}
                               <a href="{% url 'delete_bookings' booking.id %}"><button type="button" class="btn-close"
                                           aria-label="Close"></button></a></td>
+                              {% endif %}
                   </tr>
                   {% endfor %}
             </tbody>

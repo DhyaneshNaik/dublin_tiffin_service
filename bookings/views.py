@@ -38,7 +38,10 @@ def booking_confirm(request, id):
 @require_http_methods(["GET"])
 def manage_bookings(request):
     try:
-        data = Bookings.objects.filter(is_delievered=False)
+        if request.user.username == 'admin':
+            data = Bookings.objects.filter(is_delievered=False)
+        else:
+            data = Bookings.objects.filter(is_delievered=False, user_id=request.user.id)
         return render(request, 'bookings/manage_bookings.html', {'bookings': data})
     except Exception:
         return redirect(handler500)
@@ -48,11 +51,12 @@ def manage_bookings(request):
 @require_http_methods(["GET"])
 def delete_bookings(request, id):
     try:
-        data = Bookings.objects.get(id=id)
+        if request.user.username == 'admin':
+            data = Bookings.objects.get(id=id)
+        else:
+            data = Bookings.objects.get(id=id, user_id=request.user.id)
         data.delete()
-
-        data = Bookings.objects.filter(is_delievered=False)
-        return render(request, 'bookings/manage_bookings.html', {'bookings': data})
+        return redirect("manage_bookings")
     except Exception:
         return redirect(handler500)
 
@@ -61,12 +65,15 @@ def delete_bookings(request, id):
 @require_http_methods(["GET"])
 def update_bookings(request, id):
     try:
-        data = Bookings.objects.get(id=id)
-        data.is_delievered = True
-        data.save()
+        if request.user.username == 'admin':
+            data = Bookings.objects.get(id=id)
+            data.is_delievered = True
+            data.save()
 
-        data = Bookings.objects.filter(is_delievered=False)
-        return render(request, 'bookings/manage_bookings.html', {'bookings': data})
+            data = Bookings.objects.filter(is_delievered=False)
+            return render(request, 'bookings/manage_bookings.html', {'bookings': data})
+        else:
+            return redirect("manage_bookings")
     except Exception:
         return redirect(handler500)
 
@@ -75,7 +82,10 @@ def update_bookings(request, id):
 @require_http_methods(["GET"])
 def order_history(request):
     try:
-        data = Bookings.objects.filter(is_delievered=True)
+        if request.user.username == 'admin':
+            data = Bookings.objects.filter(is_delievered=True)
+        else:
+            data = Bookings.objects.filter(is_delievered=True, user_id=request.user.id)
         return render(request, 'bookings/order_history.html', {'bookings': data})
     except Exception:
         return redirect(handler500)

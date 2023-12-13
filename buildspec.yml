@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - docker --version
+      - docker-compose --version
+  build:
+    commands:
+      - docker-compose up --build -d corporate_cabs
+# artifacts:
+#   files: imagedefinitions.json
+#   files: '**/*'

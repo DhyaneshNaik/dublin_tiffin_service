@@ -22,6 +22,7 @@
       <br>
       <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
+            {% if user.is_superuser %}
             <div class="d-flex justify-content-end">
                   <a href="{% url 'add_meal' %}"><button type="button" class="btn btn-primary" fdprocessedid="3om8bs">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -33,6 +34,7 @@
                               Add Meal
                         </button></a>
             </div>
+            {% endif %}
             <br>
 
             <ul class="nav nav-tabs nav-justified">
@@ -65,12 +67,14 @@
                                     {% include 'includes/meal_confirm.html' %}
                                     <div class="col-3">
                                           <div class="p-3 border bg-light" style="border-radius: 10%;">
+                                                {% if user.is_superuser %}
                                                 <a href="{% url 'delete_meal' meal.id %}">
                                                       <div class="float-end">
                                                             <button type="button" class="btn-close"
                                                                   aria-label="Close"></button>
                                                       </div>
                                                 </a>
+                                                {% endif %}
                                                 <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
                                                 <div class="container text-center">
                                                       <img src="/{{ meal.image }}" height="150" width="150"
@@ -80,20 +84,21 @@
                                                             <p class="fst-italic">{{ meal.description }}</p>
                                                       </div>
                                                       <div class="d-flex justify-content-center">
+                                                            {% if user.is_superuser %}
                                                             <a href="{% url 'meal_form_add_update' meal.id %}"><button
                                                                         type="button"
                                                                         class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
                                                                         data-bs-toggle="modal">
                                                                         Edit
                                                                   </button></a>&nbsp;&nbsp;
+                                                            {% endif %}
+                                                            {% if user.is_authenticated %}
                                                             <button type="button"
                                                                   class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
                                                                   data-bs-toggle="modal" data-bs-target="#myModal{{ meal.pk }}">
-                                                                  <!-- data-bs-toggle="offcanvas"
-                                                                  data-bs-target="#offcanvasRight"
-                                                                  aria-controls="offcanvasRight"  -->
                                                                   Book Meal
                                                             </button>
+                                                            {% endif %}
                                                       </div>
                                                 </div>
                                           </div>
@@ -109,12 +114,14 @@
                                     {% include 'includes/meal_confirm.html' %}
                                     <div class="col-3">
                                           <div class="p-3 border bg-light" style="border-radius: 10%;">
+                                                {% if user.is_superuser %}
                                                 <a href="{% url 'delete_meal' meal.id %}">
                                                       <div class="float-end">
                                                             <button type="button" class="btn-close"
                                                                   aria-label="Close"></button>
                                                       </div>
                                                 </a>
+                                                {% endif %}
 
                                                 <h4 class="text-center text-capitalize mb-4">{{ meal.name }}</h4>
                                                 <div class="container text-center">
@@ -126,17 +133,21 @@
                                                       </div>
                                                       <!-- Button trigger modal -->
                                                       <div class="d-flex justify-content-center">
+                                                            {% if user.is_superuser %}
                                                             <a href="{% url 'meal_form_add_update' meal.id %}"><button
                                                                         type="button"
                                                                         class="btn rounded-pill btn-outline-secondary text-dark gradient-custom-4 text-body"
                                                                         data-bs-toggle="modal">
                                                                         Edit
                                                                   </button></a>&nbsp;&nbsp;
+                                                            {% endif %}
+                                                            {% if user.is_authenticated %}
                                                             <button type="button"
                                                                   class="btn rounded-pill btn-outline-secondary text-dark btn-block gradient-custom-4 text-body" 
                                                                   data-bs-toggle="modal" data-bs-target="#myModal{{ meal.pk }}">
                                                                   Book Meal
                                                             </button>
+                                                            {% endif %}
                                                       </div>
                                                 </div>
                                           </div>
