@@ -12,6 +12,6 @@ services:
     networks:
       - dublintiffinservice
     environment:
-      - SECRET_KEY=django-insecure-32ev)mspj^l##@hejl2ih#3+*11!v(s*i71nka!wirhy$$ep73
+      - SECRET_KEY=${SECRET_KEY}
 networks:
   dublintiffinservice:
