@@ -6,7 +6,7 @@ services:
     container_name: dublintiffinservice
     restart: always
     volumes:
-      - ./dublintiffinservice:/dublintiffinservice
+      - .:/dublintiffinservice
     ports:
       - 8000:8000
     networks:
