@@ -13,5 +13,7 @@ services:
       - dublintiffinservice
     environment:
       - SECRET_KEY=${SECRET_KEY}
+    env_file:
+      - .env
 networks:
   dublintiffinservice:
