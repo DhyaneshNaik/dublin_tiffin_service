@@ -33,7 +33,8 @@ LOGIN_URL = 'login'
 
 SESSION_COOKIE_HTTPONLY = True
 
-ALLOWED_HOSTS = ['dublintiffinservice-x22206124-env-2.eba-iwpxypsn.us-east-1.elasticbeanstalk.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['dublintiffinservice-x22206124-env-2.eba-iwpxypsn.us-east-1.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
